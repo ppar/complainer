@@ -2,7 +2,7 @@
 
 .PHONY: all clean complainer complainer.linux complainer.mac docker docker-dev upload-docker print-docker-repo-tag require-docker-account pre-commit vet lint fmt fmt-list fmt-diff fmt-check ineffassign
 
-VERSION ?= 1.6.1-ppar-dev
+VERSION ?= dev
 DOCKER_IMAGE_NAME ?= complainer
 DOCKER_ACCOUNT ?= $(shell if [ -e env.sh ]; then . env.sh ; echo $$_DOCKER_ACCOUNT ; fi)
 
@@ -55,7 +55,7 @@ docker-dev:
 # Only upload if the image name is "<accountname>/<imagename>:<tag>"
 upload-docker:
 	@if [ -z $(DOCKER_ACCOUNT) ]; then echo ERROR: Variable DOCKER_ACCOUNT missing ; exit 1; fi
-	echo docker push $(DOCKER_REPO_TAG)
+	docker push $(DOCKER_REPO_TAG)
 
 print-docker-repo-tag:
 	@echo $(DOCKER_REPO_TAG)
